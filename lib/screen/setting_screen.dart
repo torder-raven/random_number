@@ -29,6 +29,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
+              _Header(
+                onPressed: onButtonPressed,
+              ),
               _Body(
                 maxNumber: maxNumber,
               ),
@@ -52,6 +55,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   void onButtonPressed() {
     Navigator.of(context).pop(maxNumber.toInt());
+  }
+}
+
+class _Header extends StatelessWidget {
+  final VoidCallback onPressed;
+
+  const _Header({required this.onPressed, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        IconButton(
+          onPressed: onPressed,
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
+        const Text(
+          "설정",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 30.0,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ],
+    );
   }
 }
 
@@ -95,8 +127,8 @@ class _Footer extends StatelessWidget {
           width: double.infinity,
           child: ElevatedButton(
             onPressed: onButtonPressed,
-            child: Text("저장"),
-            style: ElevatedButton.styleFrom(primary: redColor),
+            style: ElevatedButton.styleFrom(backgroundColor: redColor),
+            child: const Text("저장"),
           ),
         ),
       ],
