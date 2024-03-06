@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:random_number/resources/resources.dart';
 
 class NumberRow extends StatelessWidget {
   final int number;
@@ -15,7 +16,7 @@ class NumberRow extends StatelessWidget {
           .split("")
           .map(
             (e) => Image.asset(
-              "asset/images/$e.png",
+              e.png(),
               width: 50.0,
               height: 70.0,
             ),

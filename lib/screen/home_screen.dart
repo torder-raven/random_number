@@ -6,6 +6,8 @@ import 'package:random_number/component/number_row.dart';
 import 'package:random_number/constant/color.dart';
 import 'package:random_number/screen/setting_screen.dart';
 
+import '../resources/strings.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -28,14 +30,14 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               _Header(
-                onPressed: onSettingsPop,
+                onPressed: navigateToSettings,
               ),
-              _Body(
+              _Numbers(
                 randomNumbers: randomNumbers,
               ),
-              _Footer(
+              _GenerateNumberByButton(
                 randomNumbers: randomNumbers,
-                onGeneratePressed: generatorNumbers,
+                onGenerateButtonPressed: generatorNumbers,
               ),
             ],
           ),
@@ -44,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void onSettingsPop() async {
+  void navigateToSettings() async {
     final result = await Navigator.of(context).push<int>(
       MaterialPageRoute(
         builder: (BuildContext context) {
@@ -86,7 +88,7 @@ class _Header extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         const Text(
-          "랜덤 색상 생성기",
+          Strings.TITLE_HOME,
           style: TextStyle(
             color: Colors.white,
             fontSize: 30.0,
@@ -105,10 +107,10 @@ class _Header extends StatelessWidget {
   }
 }
 
-class _Body extends StatelessWidget {
+class _Numbers extends StatelessWidget {
   final List<int> randomNumbers;
 
-  const _Body({required this.randomNumbers, super.key});
+  const _Numbers({required this.randomNumbers, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -136,13 +138,13 @@ class _Body extends StatelessWidget {
   }
 }
 
-class _Footer extends StatelessWidget {
+class _GenerateNumberByButton extends StatelessWidget {
   final List<int> randomNumbers;
-  final VoidCallback onGeneratePressed;
+  final VoidCallback onGenerateButtonPressed;
 
-  const _Footer(
+  const _GenerateNumberByButton(
       {required this.randomNumbers,
-      required this.onGeneratePressed,
+      required this.onGenerateButtonPressed,
       super.key});
 
   @override
@@ -150,12 +152,12 @@ class _Footer extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: onGeneratePressed,
+        onPressed: onGenerateButtonPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: redColor,
         ),
         child: const Text(
-          "생성하기",
+          Strings.GENERATE,
           style: TextStyle(
             color: Colors.white,
           ),

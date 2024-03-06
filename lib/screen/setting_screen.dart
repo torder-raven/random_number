@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:random_number/component/number_row.dart';
 import 'package:random_number/constant/color.dart';
+import 'package:random_number/resources/strings.dart';
 
 class SettingsScreen extends StatefulWidget {
   final int maxNumber;
@@ -30,15 +31,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: Column(
             children: [
               _Header(
-                onPressed: onButtonPressed,
+                onBackButtonPressed: onSaveButtonPressed,
               ),
-              _Body(
+              _Number(
                 maxNumber: maxNumber,
               ),
-              _Footer(
+              _SaveNumberBySlider(
                 maxNumber: maxNumber,
-                onChanged: onChanged,
-                onButtonPressed: onButtonPressed,
+                onSliderChanged: onSliderChanged,
+                onSaveButtonPressed: onSaveButtonPressed,
               ),
             ],
           ),
@@ -47,35 +48,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  void onChanged(double value) {
+  void onSliderChanged(double value) {
     setState(() {
       maxNumber = value;
     });
   }
 
-  void onButtonPressed() {
+  void onSaveButtonPressed() {
     Navigator.of(context).pop(maxNumber.toInt());
   }
 }
 
 class _Header extends StatelessWidget {
-  final VoidCallback onPressed;
+  final VoidCallback onBackButtonPressed;
 
-  const _Header({required this.onPressed, super.key});
+  const _Header({required this.onBackButtonPressed, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         IconButton(
-          onPressed: onPressed,
+          onPressed: onBackButtonPressed,
           icon: const Icon(
             Icons.arrow_back,
             color: Colors.white,
           ),
         ),
         const Text(
-          "설정",
+          Strings.TITLE_SETTINGS,
           style: TextStyle(
             color: Colors.white,
             fontSize: 30.0,
@@ -87,10 +88,10 @@ class _Header extends StatelessWidget {
   }
 }
 
-class _Body extends StatelessWidget {
+class _Number extends StatelessWidget {
   final double maxNumber;
 
-  const _Body({required this.maxNumber, super.key});
+  const _Number({required this.maxNumber, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -102,15 +103,18 @@ class _Body extends StatelessWidget {
   }
 }
 
-class _Footer extends StatelessWidget {
+class _SaveNumberBySlider extends StatelessWidget {
   final double maxNumber;
-  final ValueChanged<double> onChanged;
-  final VoidCallback onButtonPressed;
+  final ValueChanged<double> onSliderChanged;
+  final VoidCallback onSaveButtonPressed;
 
-  const _Footer(
+  final double sliderMinValue = 1000;
+  final double sliderMaxValue = 100000;
+
+  const _SaveNumberBySlider(
       {required this.maxNumber,
-      required this.onChanged,
-      required this.onButtonPressed,
+      required this.onSliderChanged,
+      required this.onSaveButtonPressed,
       super.key});
 
   @override
@@ -118,17 +122,22 @@ class _Footer extends StatelessWidget {
     return Column(
       children: [
         Slider(
-          min: 1000,
-          max: 1000000,
+          min: sliderMinValue,
+          max: sliderMaxValue,
           value: maxNumber,
-          onChanged: onChanged,
+          onChanged: onSliderChanged,
         ),
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-            onPressed: onButtonPressed,
+            onPressed: onSaveButtonPressed,
             style: ElevatedButton.styleFrom(backgroundColor: redColor),
-            child: const Text("저장"),
+            child: const Text(
+              Strings.SAVE,
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
           ),
         ),
       ],
