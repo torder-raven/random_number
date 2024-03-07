@@ -1,0 +1,3 @@
+const INITIAL_MIN = 1000.0;
+const INITIAL_MAX = 100000.0;
+const NUMBER_LENGTH = 3;
