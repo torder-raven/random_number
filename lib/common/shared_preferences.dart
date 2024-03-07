@@ -1,11 +1,13 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+const SHARED_PREFERENCE_MAX_NUMBER_KEY = 'maxNumber';
+
 addIntegerValue(double maxNumber) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setDouble('maxNumber', maxNumber);
+  prefs.setDouble(SHARED_PREFERENCE_MAX_NUMBER_KEY, maxNumber);
 }
 
 getIntValue() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.getDouble('maxNumber') ?? 1000.0;
+  return prefs.getDouble(SHARED_PREFERENCE_MAX_NUMBER_KEY) ?? 1000.0;
 }
