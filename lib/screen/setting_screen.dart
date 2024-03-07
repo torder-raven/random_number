@@ -16,10 +16,12 @@ class SettingScreen extends StatefulWidget {
 
 class _SettingScreenState extends State<SettingScreen> {
   late MaxNumber maxNumber;
+  double? _maxNumber;
 
   @override
   Widget build(BuildContext context) {
     maxNumber = Provider.of<MaxNumber>(context);
+    _maxNumber ??= maxNumber.getMaxValue();
 
     return Scaffold(
       backgroundColor: PRIMARY_COLOR,
@@ -30,10 +32,10 @@ class _SettingScreenState extends State<SettingScreen> {
           ),
           child: Column(children: [
             _Body(
-              maxNumber: maxNumber.getMaxValue(),
+              maxNumber: _maxNumber!,
             ),
             _Footer(
-              maxNumber: maxNumber.getMaxValue(),
+              maxNumber: _maxNumber!,
               onSliderChanged: onSliderChanged,
               onButtonChanged: onSaveMaxValue,
             )
@@ -44,10 +46,15 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 
   void onSliderChanged(double value) {
-    maxNumber.setMaxValue(value);
+    setState(() {
+      _maxNumber = value;
+    });
   }
 
   void onSaveMaxValue() {
+    if (_maxNumber != null) {
+      maxNumber.setMaxValue(_maxNumber!);
+    }
     Navigator.of(context).pop();
   }
 }
