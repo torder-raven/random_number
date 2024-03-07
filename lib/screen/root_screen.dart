@@ -72,7 +72,7 @@ class _RootScreenState extends State<RootScreen> with TickerProviderStateMixin {
           controller!.animateTo(index);
         });
       },
-      items: [
+      items: const [
         BottomNavigationBarItem(
           // 하단 탭바의 각 버튼을 구현
           icon: Icon(

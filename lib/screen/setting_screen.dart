@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:random_number/const/colors.dart';
+import 'package:random_number/const/strings.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -8,7 +9,7 @@ class SettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        '와 세팅!!!',
+        SETTING,
         style: TextStyle(color: primaryColor),
       ),
     );
