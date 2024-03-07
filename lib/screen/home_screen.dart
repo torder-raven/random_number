@@ -1,9 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:random_number/component/NumberRow.dart';
 import 'package:random_number/constant/color.dart';
 import 'package:random_number/constant/strings.dart';
+import 'package:random_number/provider/MaxNumber.dart';
 import 'package:random_number/screen/setting_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,11 +16,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int maxNumber = 1000;
+  late MaxNumber maxNumber;
   List<int> randomNumbers = [123, 456, 789];
 
   @override
   Widget build(BuildContext context) {
+    maxNumber = Provider.of<MaxNumber>(context);
+
     return Scaffold(
       backgroundColor: PRIMARY_COLOR,
       body: SafeArea(
@@ -41,18 +45,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void goToSetting() async {
-    final int? newMaxNumber = await Navigator.of(context)
-        .push<int>(MaterialPageRoute(builder: (BuildContext context) {
-      return SettingScreen(
-        maxNumber: maxNumber,
-      );
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+      return SettingScreen();
     }));
 
-    if (newMaxNumber != null) {
-      setState(() {
-        maxNumber = newMaxNumber;
-      });
-    }
+    // await Navigator.of(context)
+    //     .push(MaterialPageRoute(builder: (BuildContext context) {
+    //   return SettingScreen();
+    // }));
   }
 
   void onRandomNumberGenerate() {
@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final Set<int> newNumbers = {};
 
     while (newNumbers.length != 3) {
-      final number = rand.nextInt(maxNumber);
+      final number = rand.nextInt(maxNumber.getMaxValue().toInt());
       newNumbers.add(number);
     }
 
