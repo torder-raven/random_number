@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../const/strings.dart';
 import 'setting_screen.dart';
 import 'home_screen.dart';
 import 'dart:math';
@@ -77,13 +78,13 @@ class _RootScreenState extends State<RootScreen> with TickerProviderStateMixin {
           icon: Icon(
             Icons.edgesensor_high_outlined,
           ),
-          label: '주사위',
+          label: DICE,
         ),
         BottomNavigationBarItem(
           icon: Icon(
             Icons.settings,
           ),
-          label: '설정',
+          label: SETTING,
         ),
       ],
     );
