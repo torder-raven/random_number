@@ -36,7 +36,7 @@ class _RootScreenState extends State<RootScreen> with TickerProviderStateMixin {
 
   tabListener() {
     setState(() {
-      if (controller!.index == 1) {
+      if (controller!.index == TAB_INDEX_SETTING) {
         refreshDice();
       }
     });
