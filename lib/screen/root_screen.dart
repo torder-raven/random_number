@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../const/constant.dart';
 import '../const/strings.dart';
 import 'setting_screen.dart';
 import 'home_screen.dart';
@@ -20,7 +21,7 @@ class _RootScreenState extends State<RootScreen> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    controller = TabController(length: 2, vsync: this);
+    controller = TabController(length: TAB_COUNT, vsync: this);
     controller!.addListener(tabListener);
     refreshDice();
   }
@@ -29,7 +30,7 @@ class _RootScreenState extends State<RootScreen> with TickerProviderStateMixin {
     final rand = new Random();
 
     setState(() {
-      number = rand.nextInt(5) + 1;
+      number = rand.nextInt(RANDOM_MAX_NUMBER) + 1;
     });
   }
 
